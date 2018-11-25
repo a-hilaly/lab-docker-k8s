@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-a-pod
+  namespace: default
+  labels:
+    name: app-a
+spec:
+  containers:
+  - name: app-a-pod
+    image: ahilaly/app-a:v1
+    ports:
+      - containerPort: 8080
+  - name: app-b-pod
+    image: ahilaly/app-b:v1
+    ports:
+      - containerPort: 8081

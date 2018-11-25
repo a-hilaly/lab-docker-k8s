@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-b-deployment
+  labels:
+    name: app-b
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      name: app-b
+
+  template:
+    metadata:
+      labels:
+        name: app-b
+    spec:
+      containers:
+      - name: app-b
+        image: ahilaly/app-b:v1
+        ports:
+        - containerPort: 8081
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 200m
+            memory: 250Mi
+
+      restartPolicy: Always
+    

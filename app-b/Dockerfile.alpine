@@ -1,0 +1,6 @@
+FROM alpine:latest
+
+ADD server.o .
+
+ENV VERSION 1-alpine
+
