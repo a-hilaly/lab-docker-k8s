@@ -3,36 +3,26 @@ services:
   redis:
     image: redis:latest
     command: --appendonly yes
-
-  postgres:
-    image: postgres:latest
-    environment:
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=testdb
     
-  app-a:
-    image: app-a:v1
+  app-alpha:
+    image: app-alpha
     ports:
       - 8080:8080
 
     depends_on:
       - redis
-      #- postgres
 
     links:
       - redis:redis
-      #- postgres:postgres
 
-  app-b:
-    image: app-b:v1
+  app-beta:
+    image: app-beta
     ports:
       - 8081:8081
 
     links:
       - redis:redis
-      - app-a:app-a
-      #- postgres:postgres
+      - app-alpha:app-alpha
 
     volumes:
       - ".:/test-volume"

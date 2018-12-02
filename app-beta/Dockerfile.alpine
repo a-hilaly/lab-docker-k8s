@@ -1,6 +1,11 @@
 FROM alpine:latest
 
+# Add binary
 ADD server.o .
 
 ENV VERSION 1-alpine
+
+EXPOSE 8081
+
+ENTRYPOINT ["./server.o"]
 

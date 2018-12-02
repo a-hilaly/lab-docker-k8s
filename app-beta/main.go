@@ -14,24 +14,39 @@ var (
 )
 
 func main() {
+	// New mux server
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", infoHandler)
-	mux.HandleFunc("/list", inspectHandler)
-	//mux.HandleFunc("/goroutines", goroutinesHandler)
 
+	// Set / handler
+	mux.HandleFunc("/", infoHandler)
+
+	// Set /list handler
+	// This will try to execute ls -la on /test-volume directory
+	mux.HandleFunc("/list", inspectHandler)
+
+	// Log server starting
 	log.Println("Starting server at: 8081 ...")
-	log.Fatal(http.ListenAndServe(":8081", mux))
+
+	// Listen and serve
+	err := http.ListenAndServe(":8081", mux)
+	if err != nil {
+		// If error exit 1
+		log.Fatal(err)
+	}
 }
 
+// Return informations about hostname & version
 func infoHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "hostname:%s\nversion:%s\n", host, version)
 }
 
+// Return infromations about /test-volume content
 func inspectHandler(w http.ResponseWriter, r *http.Request) {
 	testVolumeFiles, err := listDirectory("/test-volume")
 	fmt.Fprintf(w, "> ls /test-volume\n%v\nerr: %v\n\n", testVolumeFiles, err)
 }
 
+// Return all files & directories within a directory
 func listDirectory(path string) ([]string, error) {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
@@ -48,7 +63,9 @@ func listDirectory(path string) ([]string, error) {
 }
 
 /*
+//mux.HandleFunc("/goroutines", goroutinesHandler)
 
+// multi threading example
 func goroutinesHandler(w http.ResponseWriter, r *http.Request) {
 
 	done := make(chan string)

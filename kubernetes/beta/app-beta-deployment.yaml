@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-b-deployment
+  name: app-beta-deployment
   labels:
-    name: app-b
+    name: app-beta
 spec:
   replicas: 3
 
   selector:
     matchLabels:
-      name: app-b
+      name: app-beta
 
   template:
     metadata:
       labels:
-        name: app-b
+        name: app-beta
     spec:
       containers:
-      - name: app-b
-        image: ahilaly/app-b:v1
+      - name: app-beta
+        image: ahilaly/app-beta:v1-alpine
         ports:
         - containerPort: 8081
         resources:
