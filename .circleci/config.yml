@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     machine: true
-    working_directory: /lab
     steps:
       - checkout
             
@@ -53,7 +52,8 @@ workflows:
             branches:
               only:
                - test
-               - /dev*/
+               - dev
+               - /dev-.*/
       - push:
           filters:
             branches:
