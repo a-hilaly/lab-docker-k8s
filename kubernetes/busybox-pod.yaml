@@ -10,3 +10,6 @@ spec:
   - name: myapp-container
     image: busybox
     command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 120']
+    
+  restartPolicy: Never # Always | OnFailure
+  

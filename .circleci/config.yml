@@ -1,0 +1,61 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    working_directory: /lab
+    steps:
+      - checkout
+            
+      - run:
+          name: build alpha
+          command: |
+            make build-alpha
+
+      - run:
+          name: build beta alpine
+          command: |
+            make compile-beta
+            make build-beta-alpine
+          
+  push:
+    machine: true
+    steps:
+      - checkout
+
+      - run:
+          name: build alpha
+          command: |
+            make build-alpha
+
+      - run:
+          name: build beta alpine
+          command: |
+            make compile-beta
+            make build-beta-alpine
+
+      - run:
+          name: docker login
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+  
+      - run:
+          name: push
+          command: |
+            docker push ahilaly/app-alpha:v1
+            docker push ahilaly/app-beta:v1-alpine
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+               - test
+               - /dev*/
+      - push:
+          filters:
+            branches:
+              only: 
+                - master

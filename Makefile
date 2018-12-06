@@ -8,24 +8,24 @@ _run-beta:
 compile-beta:
 	# Compile beta application binaries for linux alpine
 	cd app-beta && GOOS=linux \
-		go build -o server.o \
+		go build -o app-beta/server.o \
 		main.go
 
 build-alpha:
     # build alpha application image
 	cd app-alpha && docker build \
-		-t ahilaly/app-alpha:v1 .
+		-t ahilaly/app-alpha:v1 ./app-alpha
 
 build-beta:
     # build beta application image
 	cd app-beta && docker build \
-		-t ahilaly/app-beta:v1 .
+		-t ahilaly/app-beta:v1 ./app-beta
 
 build-beta-alpine:
     # build beta application alpine based image
 	cd app-beta && docker build \
 		-f Dockerfile.alpine \
-		-t ahilaly/app-beta:v1-alpine .
+		-t ahilaly/app-beta:v1-alpine ./app-beta
 
 run-alpha:
 	# run detached container

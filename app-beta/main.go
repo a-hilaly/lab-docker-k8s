@@ -14,6 +14,7 @@ var (
 )
 
 func main() {
+
 	// New mux server
 	mux := http.NewServeMux()
 
