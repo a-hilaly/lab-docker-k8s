@@ -57,5 +57,5 @@ workflows:
       - push:
           filters:
             branches:
-              only: 
+              only:
                 - master
