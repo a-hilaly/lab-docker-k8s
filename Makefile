@@ -1,46 +1,57 @@
+# run alpha application
 _run-alpha:
-	# pip3 install -r app-alpha/requirements.txt
 	python3 app-alpha/server.py
 
+# Run beta application with go compiler
 _run-beta:
 	go run app-beta/main.go
 
+# Compile beta application binaries for linux alpine
 compile-beta:
-	# Compile beta application binaries for linux alpine
 	cd app-beta && GOOS=linux \
 		go build -o server.o \
 		main.go
 
+# Build alpha container image
 build-alpha:
-    # build alpha application image
 	cd app-alpha && docker build \
 		-t ahilaly/app-alpha:v1 .
 
+# Docker build beta image based on golang:1.11
 build-beta:
-    # build beta application image
 	cd app-beta && docker build \
 		-t ahilaly/app-beta:v1 .
 
-build-beta-alpine:
+# Build beta image with alpine binaries
+build-beta-alpine: compile-beta
     # build beta application alpine based image
 	cd app-beta && docker build \
 		-f Dockerfile.alpine \
 		-t ahilaly/app-beta:v1-alpine .
 
+
+# Run alpha container
 run-alpha:
 	# run detached container
 	docker run -dti -p 8080:8080 ahilaly/app-alpha:v1
 
+# Run beta alpine container
 run-beta:
 	docker run -dti -p 8081:8081 ahilaly/app-beta:v1-alpine # v1
 
+deploy-redis:
+	kubectl create -f kubernetes/redis
+
+docker-compose:
+	docker-compose up -d
+
+# Deploy alpha in kubernetes cluster
+# kubectl must be configured 
 deploy-alpha:
-	# deploy alpha application to kubernetes cluster
-	# kubectl must be configured 
 	kubectl create -f kubernetes/alpha
 
+# Deploy beta in kubernetes cluster
 deploy-beta:
-	# deploy beta application to kubernetes cluster
 	kubectl create -f kubernetes/beta
 
 
