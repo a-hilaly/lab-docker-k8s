@@ -6,23 +6,22 @@ jobs:
       - checkout
             
       - run:
-          name: build alpha
+          name: build app-alpha
           command: |
             make build-alpha
 
       - run:
-          name: build beta alpine
+          name: build app-beta alpine
           command: |
             make compile-beta
             make build-beta-alpine
-          
-  push:
+  build-push:
     machine: true
     steps:
       - checkout
 
       - run:
-          name: build alpha
+          name: build app-alpha
           command: |
             make build-alpha
 
@@ -54,7 +53,7 @@ workflows:
                - test
                - dev
                - /dev-.*/
-      - push:
+      - build-push:
           filters:
             branches:
               only:
