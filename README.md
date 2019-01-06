@@ -5,13 +5,13 @@
 
 ---
 
-## Requirements
+### Requirements
 - `docker` & `docker-compose`
 - Configured `kubectl`
 - Golang v1.11 to compile go server
 
 
-## Commands
+### Commands
 
 Exploring [./Makefile](./Makefile) you'll find rules that for making the following actions:
 - Build/Run `app-alpha` container (Python Flask application) 
@@ -20,7 +20,7 @@ Exploring [./Makefile](./Makefile) you'll find rules that for making the followi
 - Deploy using kubectl
 
 
-## Images
+### Images
 
 Hosted images:
 - [app-alpha](https://cloud.docker.com/repository/docker/ahilaly/app-alpha)
