@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-beta-deployment
+  labels:
+    name: app-beta
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      name: app-beta
+
+  template:
+    metadata:
+      labels:
+        name: app-beta
+    spec:
+      containers:
+      
+      - name: app-beta
+        imagePullPolicy: Always
+        image: ahilaly/app-beta:v1-alpine-arm64
+        ports:
+        - containerPort: 8081
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 200m
+            memory: 250Mi
+        volumeMounts:
+          - mountPath: /test-volume
+            name: nfs-volume
+
+      restartPolicy: Always
+      
+      volumes:
+        - name: nfs-volume
+          persistentVolumeClaim:
+            claimName: data-pvc
+    

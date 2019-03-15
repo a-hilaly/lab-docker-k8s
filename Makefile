@@ -12,6 +12,13 @@ compile-beta:
 		go build -o server.o \
 		main.go
 
+# Compile beta application binaries for arm/alpine
+compile-beta-arm:
+	cd app-beta && GOOS=linux GOARCH=arm GOARM=5 \
+		go build -o server.o-arm \
+		main.go
+
+
 # Build alpha container image
 build-alpha:
 	cd app-alpha && docker build \
@@ -29,6 +36,12 @@ build-beta-alpine: compile-beta
 		-f Dockerfile.alpine \
 		-t ahilaly/app-beta:v1-alpine .
 
+# Build beta image with alpine binaries
+build-beta-alpine-arm: compile-beta
+    # build beta application alpine based image
+	cd app-beta && docker build \
+		-f Dockerfile.arm-alpine \
+		-t ahilaly/app-beta:v1-alpine-arm64 .
 
 # Run alpha container
 run-alpha:

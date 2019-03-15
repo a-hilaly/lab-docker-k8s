@@ -1,0 +1,10 @@
+FROM armhf/alpine:latest
+
+# Add binary
+ADD server.o-arm .
+
+ENV VERSION 1-alpine-arm
+
+EXPOSE 8081
+
+ENTRYPOINT [ "./server.o-arm" ]
