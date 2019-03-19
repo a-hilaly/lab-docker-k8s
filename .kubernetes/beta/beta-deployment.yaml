@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
-  name: app-alpha-deployment
+  name: beta-deployment
   labels:
-    name: app-alpha
+    name: beta
 spec:
   replicas: 3
+
   selector:
     matchLabels:
-      name: app-alpha
+      name: beta
 
   template:
     metadata:
       labels:
-        name: app-alpha
+        name: beta
     spec:
       containers:
-      - name: app-alpha
-        image: ahilaly/app-alpha:v1
+      - name: beta
+        image: ahilaly/beta:v1-alpine
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
         resources:
           requests:
             cpu: 50m

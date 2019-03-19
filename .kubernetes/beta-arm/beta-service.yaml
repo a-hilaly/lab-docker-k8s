@@ -3,13 +3,13 @@ kind: Service
 metadata:
   namespace: default
   labels:
-    name: app-beta
-  name: app-beta
+    name: beta
+  name: beta
 spec:
   ports:
   - name: "8081"
     port: 8081
     targetPort: 8081
   selector:
-    name: app-beta
+    name: beta
   type: NodePort

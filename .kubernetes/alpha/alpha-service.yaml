@@ -3,14 +3,14 @@ kind: Service
 metadata:
   namespace: default
   labels:
-    name: app-alpha
-  name: app-alpha
+    name: alpha
+  name: alpha
 spec:
   ports:
   - name: "8080"
     port: 8080
     targetPort: 8080
   selector:
-    name: app-alpha
+    name: alpha
   type: LoadBalancer
 

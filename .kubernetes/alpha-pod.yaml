@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: app-alpha-pod
+  name: alpha-pod
   namespace: default
   labels:
-    name: app-alpha
+    name: alpha
 spec:
 
   containers:
-  - name: app-alpha-pod
-    image: ahilaly/app-alpha:v2
+  - name: alpha-pod
+    image: ahilaly/alpha:v2
     ports:
       - containerPort: 8080
     resources:
@@ -20,8 +20,8 @@ spec:
         cpu: 200m
         memory: 250Mi
 
-  - name: app-beta-pod
-    image: ahilaly/app-beta:v2-alpine
+  - name: beta-pod
+    image: ahilaly/beta:v2-alpine
     ports:
       - containerPort: 8081
     resources:
