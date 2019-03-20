@@ -16,7 +16,14 @@ jobs:
           command: |
             make compile-beta
             make build-beta-alpine
+      - run:
+          name: build omega
+          command: |
             make build-omega
+      
+      - run:
+          name: build gamma
+          command: |
             make build-gamma
 
   # Build and push job
@@ -26,13 +33,9 @@ jobs:
       - checkout
 
       - run:
-          name: build alpha
+          name: build all images
           command: |
             make build-alpha
-
-      - run:
-          name: build beta alpine
-          command: |
             make compile-beta
             make build-beta-alpine
             make build-omega
@@ -46,10 +49,7 @@ jobs:
       - run:
           name: push
           command: |
-            docker push supinfosxb/alpha:v1
-            docker push supinfosxb/beta:v1-alpine
-            docker push supinfosxb/gamma:v1
-            docker push supinfosxb/omega:v1
+            make push-all
 
 workflows:
   version: 2

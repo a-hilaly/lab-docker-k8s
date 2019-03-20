@@ -1,4 +1,4 @@
-HUB_URL=registry.hub.docker.io
+HUB_URL=docker.io
 ORGANISATION=supinfosxb
 TAG_BASE=$(HUB_URL)/$(ORGANISATION)
 
@@ -131,12 +131,17 @@ deploy-omega:
 ########################################################
 # Extra
 
+push-all:
+	docker push $(TAG_BASE)/alpha:v1
+	docker push $(TAG_BASE)/beta:v1-alpine
+	docker push $(TAG_BASE)/gamma:v1
+	docker push $(TAG_BASE)/omega:v1
+
 deploy-redis:
 	kubectl create -f kubernetes/redis
 
 docker-compose:
 	docker-compose up -d
-
 
 # kubectl
 # get pod logs: kubectl logs pod-name
