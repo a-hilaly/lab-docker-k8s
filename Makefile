@@ -1,3 +1,7 @@
+HUB_URL=registry.hub.docker.io
+ORGANISATION=$(TAG_BASE)
+TAG_BASE=$(HUB_URL)/$(ORGANISATION)
+
 ########################################################
 # alpha: python server
 
@@ -12,12 +16,12 @@ _run-alpha:
 # Build alpha container image
 build-alpha:
 	cd alpha && docker build \
-		-t ahilaly/alpha:v1 .
+		-t $(TAG_BASE)/alpha:v1 .
 
 # Run alpha container
 run-alpha:
 	# run detached container
-	docker run -it -p 8080:8080 ahilaly/alpha:v1
+	docker run -it -p 8080:8080 $(TAG_BASE)/alpha:v1
 
 # Deploy alpha in kubernetes cluster
 # kubectl must be configured 
@@ -47,32 +51,32 @@ compile-beta-arm:
 # Docker build beta image based on golang:1.11
 build-beta:
 	cd beta && docker build \
-		-t ahilaly/beta:v1 .
+		-t $(TAG_BASE)/beta:v1 .
 
 # Build beta image with alpine binaries
 build-beta-alpine: compile-beta
     # build beta application alpine based image
 	cd beta && docker build \
 		-f Dockerfile.alpine \
-		-t ahilaly/beta:v1-alpine .
+		-t $(TAG_BASE)/beta:v1-alpine .
 
 # Build beta image with alpine binaries
 build-beta-alpine-arm: compile-beta
     # build beta application alpine based image
 	cd beta && docker build \
 		-f Dockerfile.arm-alpine \
-		-t ahilaly/beta:v1-alpine-arm64 .
+		-t $(TAG_BASE)/beta:v1-alpine-arm64 .
 
 # Run beta alpine container
 run-beta:
-	docker run -it -p 8081:8081 ahilaly/beta:v1-alpine # v1
+	docker run -it -p 8081:8081 $(TAG_BASE)/beta:v1-alpine # v1
 
 # Deploy beta in kubernetes cluster
 deploy-beta:
 	kubectl create -f kubernetes/beta
 
 ########################################################
-# gamma: python server
+# gamma: nodejs server
 
 # python deps
 _deps-gamma:
@@ -85,12 +89,12 @@ _run-gamma:
 # Build gamma container image
 build-gamma:
 	cd gamma && docker build \
-		-t ahilaly/gamma:v1 .
+		-t $(TAG_BASE)/gamma:v1 .
 
 # Run gamma container
 run-gamma:
 	# run detached container
-	docker run -it -p 8080:8080 ahilaly/gamma:v1
+	docker run -it -p 8080:8080 $(TAG_BASE)/gamma:v1
 
 # Deploy gamma in kubernetes cluster
 # kubectl must be configured 
@@ -111,12 +115,12 @@ _run-omega:
 # Build omega container image
 build-omega:
 	cd omega && docker build \
-		-t ahilaly/omega:v1 .
+		-t $(TAG_BASE)/omega:v1 .
 
 # Run omega container
 run-omega:
 	# run detached container
-	docker run -it -p 80:3000 ahilaly/omega:v1
+	docker run -it -p 80:3000 $(TAG_BASE)/omega:v1
 
 # Deploy omega in kubernetes cluster
 # kubectl must be configured 

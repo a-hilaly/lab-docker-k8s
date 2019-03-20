@@ -6,29 +6,32 @@
 ---
 
 ### Requirements
-- `docker` & `docker-compose`
-- Configured `kubectl`
-- Golang v1.11 to compile go server
-
+- `docker`
 
 ### Commands
 
 Exploring [./Makefile](./Makefile) you'll find rules that for making the following actions:
-- Build/Run `app-alpha` container (Python Flask application) 
-- Build/Run `app-beta` container: (Go application)
-- Deploy using `docker-compose`
-- Deploy using kubectl
+- Build/Run `alpha` container (Python Flask application) 
+- Build/Run `beta` container: (Go application)
+- Build/Run `gamma` container: (NodeJS application)
+- Build/Run `ruby` container: (Ruby on Rails application)
+
+- Deploy all the applications using `docker-compose`
+- Deploy using kubernetes
 
 
 ### Images
 
 Hosted images:
-- [app-alpha](https://cloud.docker.com/repository/docker/ahilaly/app-alpha)
-- [app-beta](https://cloud.docker.com/repository/docker/ahilaly/app-beta)
-
+- [alpha](https://cloud.docker.com/repository/docker/supinfosxb/alpha)
+- [beta](https://cloud.docker.com/repository/docker/supinfosxb/beta)
+- [omega](https://cloud.docker.com/repository/docker/supinfosxb/omega)
+- [gamma](https://cloud.docker.com/repository/docker/supinfosxb/gamma)
 
 Pull images
 ```bash
-docker pull ahilaly/app-alpha:v1
-docker pull ahilaly/app-beta:v1-alpine
+docker pull supinfosxb/alpha:v1
+docker pull supinfosxb/beta:v1-alpine
+docker pull supinfosxb/gamma:v1
+docker pull supinfosxb/omega:v1
 ```
