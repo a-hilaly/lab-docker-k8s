@@ -72,6 +72,33 @@ deploy-beta:
 	kubectl create -f kubernetes/beta
 
 ########################################################
+# Omega: ruby rails server
+
+# python deps
+_deps-omega:
+	gem install rails bundler && bundle update
+
+# Run omega application
+_run-omega:
+	cd omega && rails server
+
+# Build omega container image
+build-omega:
+	cd omega && docker build \
+		-t ahilaly/omega:v1 .
+
+# Run omega container
+run-omega:
+	# run detached container
+	docker run -it -p 80:3000 ahilaly/omega:v1
+
+# Deploy omega in kubernetes cluster
+# kubectl must be configured 
+deploy-omega:
+	kubectl create -f .kubernetes/omega
+
+
+########################################################
 # Extra
 
 deploy-redis:
