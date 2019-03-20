@@ -1,5 +1,5 @@
 HUB_URL=registry.hub.docker.io
-ORGANISATION=$(TAG_BASE)
+ORGANISATION=supinfosxb
 TAG_BASE=$(HUB_URL)/$(ORGANISATION)
 
 ########################################################
@@ -94,7 +94,7 @@ build-gamma:
 # Run gamma container
 run-gamma:
 	# run detached container
-	docker run -it -p 8080:8080 $(TAG_BASE)/gamma:v1
+	docker run -it -p 8082:8082 $(TAG_BASE)/gamma:v1
 
 # Deploy gamma in kubernetes cluster
 # kubectl must be configured 
@@ -120,7 +120,7 @@ build-omega:
 # Run omega container
 run-omega:
 	# run detached container
-	docker run -it -p 80:3000 $(TAG_BASE)/omega:v1
+	docker run -it -p 3000:3000 $(TAG_BASE)/omega:v1
 
 # Deploy omega in kubernetes cluster
 # kubectl must be configured 

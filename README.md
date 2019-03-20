@@ -35,3 +35,14 @@ docker pull supinfosxb/beta:v1-alpine
 docker pull supinfosxb/gamma:v1
 docker pull supinfosxb/omega:v1
 ```
+
+### Example
+
+Build and run Ruby on rails application:
+
+```bash
+make build-omega
+make run-omega
+```
+
+browse to localhost:3000
