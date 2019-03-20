@@ -1,5 +1,5 @@
 ########################################################
-# Alpha: python server
+# alpha: python server
 
 # python deps
 _deps-alpha:
@@ -17,7 +17,7 @@ build-alpha:
 # Run alpha container
 run-alpha:
 	# run detached container
-	docker run -dti -p 8080:8080 ahilaly/alpha:v1
+	docker run -it -p 8080:8080 ahilaly/alpha:v1
 
 # Deploy alpha in kubernetes cluster
 # kubectl must be configured 
@@ -65,11 +65,37 @@ build-beta-alpine-arm: compile-beta
 
 # Run beta alpine container
 run-beta:
-	docker run -dti -p 8081:8081 ahilaly/beta:v1-alpine # v1
+	docker run -it -p 8081:8081 ahilaly/beta:v1-alpine # v1
 
 # Deploy beta in kubernetes cluster
 deploy-beta:
 	kubectl create -f kubernetes/beta
+
+########################################################
+# gamma: python server
+
+# python deps
+_deps-gamma:
+	pip3 install -r gamma/requirements.txt
+
+# Run gamma application
+_run-gamma:
+	python3 gamma/server.py
+
+# Build gamma container image
+build-gamma:
+	cd gamma && docker build \
+		-t ahilaly/gamma:v1 .
+
+# Run gamma container
+run-gamma:
+	# run detached container
+	docker run -it -p 8080:8080 ahilaly/gamma:v1
+
+# Deploy gamma in kubernetes cluster
+# kubectl must be configured 
+deploy-gamma:
+	kubectl create -f kubernetes/gamma
 
 ########################################################
 # Omega: ruby rails server
